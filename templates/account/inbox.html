@@ -1,0 +1,100 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="content-header m-3" xmlns="http://www.w3.org/1999/html">
+      <div class="container-fluid m-3">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Inbox Message</li>
+            </ol>
+
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+
+      <div class="col-md-9">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">Inbox</h3>
+
+              <div class="card-tools">
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" placeholder="Search Mail">
+                  <div class="input-group-append">
+                    <div class="btn btn-primary">
+                      <i class="fas fa-search"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+
+                <!-- /.float-right -->
+              </div>
+              <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                  <tbody>
+
+                   {% for msg in messages %}
+                   <tr>
+                    <td>
+                      <div class="icheck-primary">
+                        <input type="checkbox" value="" id="check1">
+                        <label for="check1"></label>
+                      </div>
+                    </td>
+                    <td class="mailbox-star"><a href="#"><i class="fas fa-star text-warning"></i></a></td>
+                    <td class="mailbox-name"><a href="read-mail.html">{{ msg.fk_to.email }}</a></td>
+                    <td class="mailbox-subject"><b>{{ msg.subject }}</b> - {{ msg.message }}...
+                    </td>
+                    <td class="mailbox-attachment"></td>
+                    <td class="mailbox-date">{{ msg.created_at }}</td>
+                    <td><a href="{% url 'messageDelete' msg.id %}"><button type="button" class="btn btn-default btn-sm">
+                    <i class="far fa-trash-alt"></i>
+                  </button></a>
+
+                </td>
+                     </tr>
+                    {% endfor %}
+
+                 </tbody>
+                </table>
+                <!-- /.table -->
+              </div>
+              <!-- /.mail-box-messages -->
+            </div>
+            <!-- /.card-body -->
+
+                <!-- /.btn-group -->
+                <button type="button" class="btn btn-default btn-sm">
+                  <i class="fas fa-sync-alt"></i>
+                </button>
+                <div class="float-right">
+                  1-50/200
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-sm">
+                      <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </div>
+                  <!-- /.btn-group -->
+                </div>
+                <!-- /.float-right -->
+              </div>
+            </div>
+          </div>
+
+
+     {% endblock %}

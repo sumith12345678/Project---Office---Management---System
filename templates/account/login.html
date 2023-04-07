@@ -1,0 +1,68 @@
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OMS</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+</head>
+
+
+
+ <body class="hold-transition login-page" style="background-color:rgb(18, 6, 49);">
+<div class="login-box">
+  <div class="login-logo">
+    <a href=""><b class="text-light font-weight-bold " >LOGIN</b></a>
+  </div> 
+  <!-- /.login-logo -->
+ 
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form method="post" class="form-signin" action="">
+        {% csrf_token %}
+        <div class="form-label-group">
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+            <label for="username">Username</label>
+            
+        </div>
+
+        <div class="form-label-group">
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+            <label for="password">Password</label>
+        </div>
+
+        <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" class="custom-control-input" id="customCheck1" name="remember_me">
+            <label class="custom-control-label" for="customCheck1">Remember me</label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" value="submit">Sign in</button>
+        <hr class="my-4">
+
+      </form>
+      
+</div>
+</div>
+</div>
+</div>
+</div> 
+
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="content-header m-3" xmlns="http://www.w3.org/1999/html">
+      <div class="container-fluid m-3">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Compose Message</li>
+            </ol>
+
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+        <div class="col-md-9">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">Compose New Message</h3>
+                  {% if messages %}
+                    {%for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            <ul class="messages">
+                                <li class="text-center">{{ message }}</li>
+                            </ul>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                 <form action="" method="POST"> {% csrf_token %}
+                <div class="form-group">
+                  <select class="form-control" placeholder="To:" name="to" >
+                    {% for emp in employee %}
+                    <option value="{{ emp.id }}">{{ emp.e_name }}</option>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                  <input class="form-control" placeholder="Subject:" name="subject">
+                </div>
+                <div class="form-group">
+                    <textarea id="compose-textarea" class="form-control" name ="message" style="height: 300px">
+
+                      Thank you,
+                      {{ request.user.name }}
+                    </textarea>
+                </div>
+<!--                <div class="form-group">-->
+<!--                  <div class="btn btn-default btn-file">-->
+<!--                    <i class="fas fa-paperclip"></i> Attachment-->
+<!--                    <input type="file" name="attachment">-->
+<!--                  </div>-->
+<!--                  <p class="help-block">Max. 32MB</p>-->
+<!--                </div>-->
+<!--              </div>-->
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <div class="float-right">
+
+                  <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Send</button>
+                </div>
+                <button type="reset" class="btn btn-default"><i class="fas fa-times"></i> Discard</button>
+              </div>
+
+              <!-- /.card-footer -->
+            </div>
+          </form>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+  {% endblock %}

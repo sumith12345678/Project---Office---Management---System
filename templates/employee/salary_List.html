@@ -1,0 +1,128 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% block content %}
+{{ tasks }}
+
+<div class="content-header">
+
+
+    <div class="row">
+          <div class="col-12 m-3">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title m-2">Salary List</h3>
+                    {% if messages %}
+                    {%for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            <ul class="messages">
+                                <li class="text-center">{{ message }}</li>
+                            </ul>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" style="height: 300px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+              <tr>
+                <th style="width: 10px">No</th>
+               <th>Employee</th>
+               <th>Department</th>
+                <th>Task</th>
+                <th>Status</th>
+                <th>Assigned Date</th>
+                <th>Lat Date</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+             {% for i in salary %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.fk_employee.e_name }}</td>
+                <td>{{ i.fk_employee.fk_department }}</td>
+                <td>{{ i.salary }}</td>
+                <td>{{ i.status }}</td>
+                <td>{{ i.created_at }}</td>
+                <td>{{ i.updated_at }}</td>
+
+                 <td>
+                      <button type="button" class="btn btn-block btn-success btn-sm " ><i class="fas fa-edit"></i></button>
+                    </td>
+
+
+                <td><a href="{% url 'salaryDelete' i.id %}">
+                    <button type="button" class="btn btn-block btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+              </a></td>
+              <td><a class="">
+                  <button type="button"  class="badge bg-primary change_status btn-sm" data-empId="{{ i.id }}">
+                      <i class="fas fa-barcode"></i> change status</button>
+                </a></td>
+              </tr>
+
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+   <div id="statusModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change Status</h5>
+                <button type="button" class="close btn-outline-success" data-dismiss="modal">&times;</button>
+            </div>
+
+         <form action="{% url 'changeSalaryStatus' %}" method="POST"> {% csrf_token %}
+                <div class="modal-body">
+                    <input name="salaryId" id="salaryId" value ="" hidden>
+                    <div class="form-group">
+                        <label>status</label>
+                        <select class="form-control" name="status" placeholder="change status">
+                            <option>Pending</option>
+                            <option>Paid</option>
+                        </select>
+                     </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+         </form>
+        </div>
+    </div>
+</div>
+    </div>
+<script>
+    $(document).on("click",".change_status", function () {
+        salaryid = $(this).data('empid');
+        $('#salaryId').val(salaryid);
+
+        $("#statusModal").modal('show');
+
+       $(".close").on('click', function(){
+        $("#statusModal").modal('hide');
+        });
+    });
+</script>
+
+
+{% endblock %}

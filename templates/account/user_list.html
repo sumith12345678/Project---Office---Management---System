@@ -1,0 +1,77 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<ul>
+
+      <div class="card">
+        <div class="card-header">
+            <div class="card-header bg-primary text-white">
+                USER LIST
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th style="width: 10px">No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Created At</th>
+                <th>Active</th>
+                <th>Enable/Disable</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+
+            <tbody>
+             {% for user in users %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td> 
+                    {% if user.role == 2 %}
+                        <p>Employer</p>
+                    {% elif user.role == 3 %}
+                        <p> Employee</p>
+                    {% else %} 
+                      <p>Admin</p>
+                    {% endif %}
+                </td>
+                <td>{{ user.created_at}}</td>
+                <td>{{ user.is_active}}</td>
+                 
+                <td>
+                    {% if user.is_active %}
+                    <a href="{% url 'user_status' user.id %}"><button type="button" class="btn btn-warning rounded-pill btn-sm">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                        <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+                      </svg>Disable</button></a> 
+                {% else %}
+                <a href="{% url 'user_status' user.id %}"><button type="button" class="btn btn-primary rounded-pill btn-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16">
+                    <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
+                  </svg>  Enable</button></a>
+                {% endif %}
+                </td>
+                <td><a href="{% url 'user_delete' user.id %}">
+                    <button type="button" class="btn btn-danger rounded-pill btn-sm">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-x-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+                      </svg> Delete</button>
+              </a></td>    
+              </tr>
+              
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</ul>
+
+{% endblock %}

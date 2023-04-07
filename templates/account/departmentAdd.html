@@ -1,0 +1,59 @@
+{% extends 'account/base.html' %}
+{% block content %}
+ <div class="content-header m-3">
+      <div class="container-fluid m-3">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Add Department</li>
+
+            </ol>
+
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title mb-2">Add Department</h3>
+                    {% if messages %}
+                    {%for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            <ul class="messages">
+                                <li class="text-center">{{ message }}</li>
+                            </ul>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                     <div align="right">
+                     <a href="{% url 'departmentList' %}"><span class="breadcrumb-item active bg-warning">Department List</span></a>
+
+                </div>
+              </div>
+
+                <form action="{% url 'departmentAdd' %}" method="post" class="row g-3"> {% csrf_token %}
+                      <div class="col-10">
+                          <label for="inputNanme4 col-4" class="form-label m-2">Department Name : </label>
+                          <input type="text" class="form-control col-6 m-2" id="inputNanme4" name="dept_name">
+                       </div>
+                      <div class="text-center col-5 m-2">
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                          <button type="reset" class="btn btn-secondary">Reset</button>
+                      </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
